@@ -3,6 +3,7 @@
 #include <vector>
 #include "user.pb.h"
 #include "mprpcapplication.h"
+#include "rpcprovider.h"
 
 // user service is a local service that provides two methods:
 // 1. login
@@ -41,7 +42,7 @@ class UserService : public fixbug::UserServiceRpc { // rpc provider
         fixbug::ResultCode* result = response->mutable_result();
         result->set_errcode(0);
         result->set_errmsg("");
-        response->set_result(login_res);
+        response->set_success(login_res);
         
         // callback, serialize response and network send 
         done->Run();

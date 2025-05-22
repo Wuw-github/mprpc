@@ -9,8 +9,4 @@ class RpcProvider {
 
     // Run the rpc service
     void Run();
-
-  private:
-    // The thread pool for processing rpc requests
-    ThreadPool threadpool_;
 };

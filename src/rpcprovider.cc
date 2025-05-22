@@ -1,6 +1,7 @@
 #include "rpcprovider.h"
 
-void PrcProvider::NotifyService() {
+void RpcProvider::NotifyService(google::protobuf::Service* service) {
+    
 }
 
 void RpcProvider::Run() {
