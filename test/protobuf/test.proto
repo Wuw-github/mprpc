@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package fixbug; // declare the namespace
 
+// indicate to generate service code and rpc method description
+option cc_generic_services = true;
+
 message ResultCode {
     int32 errcode = 1;
     bytes errmsg = 2;
@@ -36,4 +39,9 @@ message User {
 message GetFriendListsResponse {
     ResultCode result = 1;
     repeated User friend_list = 2; // list of friends
+}
+
+service UserServiceRpc {
+    rpc Login(LoginRequest) returns(LoginResponse);
+    rpc GetFriendLists(GetFriendListsRequest) returns(GetFriendListsResponse);
 }

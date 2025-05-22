@@ -1,0 +1,39 @@
+ {
+     "version": "2.0.0",
+     "tasks": [
+         {
+             "label": "CMake Configure",
+             "type": "shell",
+             "command": "cmake",
+             "args": [
+                 "-S",
+                 "${workspaceFolder}",
+                 "-B",
+                 "${workspaceFolder}/build", // Your CMake build directory
+                 "-DCMAKE_BUILD_TYPE=Debug", // Or Release, RelWithDebInfo
+                 "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON" // Crucial for compile_commands.json
+             ],
+             "group": "build",
+             "problemMatcher": [],
+             "detail": "Configure the project using CMake and generate compile_commands.json."
+         },
+         {
+             "label": "build", // This label matches your launch.json's preLaunchTask
+             "type": "shell",
+             "command": "cmake",
+             "args": [
+                 "--build",
+                 "${workspaceFolder}/build" // Your CMake build directory
+             ],
+             "group": {
+                 "kind": "build",
+                 "isDefault": true
+             },
+             "problemMatcher": [
+                 "$gcc" // Or "$clang" if you use Clang
+             ],
+             "detail": "Build the project using CMake.",
+             "dependsOn": ["CMake Configure"] // Automatically run configure before building
+         }
+     ]
+ }

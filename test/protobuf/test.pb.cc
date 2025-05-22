@@ -270,13 +270,17 @@ const char descriptor_table_protodef_test_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIA
     "ser.Sex\"\031\n\003Sex\022\007\n\003MAN\020\000\022\t\n\005WOMAN\020\001\"_\n\026Ge"
     "tFriendListsResponse\022\"\n\006result\030\001 \001(\0132\022.f"
     "ixbug.ResultCode\022!\n\013friend_list\030\002 \003(\0132\014."
-    "fixbug.Userb\006proto3"
+    "fixbug.User2\227\001\n\016UserServiceRpc\0224\n\005Login\022"
+    "\024.fixbug.LoginRequest\032\025.fixbug.LoginResp"
+    "onse\022O\n\016GetFriendLists\022\035.fixbug.GetFrien"
+    "dListsRequest\032\036.fixbug.GetFriendListsRes"
+    "ponseb\006proto3"
 };
 static ::absl::once_flag descriptor_table_test_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_test_2eproto = {
     false,
     false,
-    419,
+    573,
     descriptor_table_protodef_test_2eproto,
     "test.proto",
     &descriptor_table_test_2eproto_once,
