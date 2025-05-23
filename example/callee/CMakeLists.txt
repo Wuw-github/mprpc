@@ -1,7 +1,7 @@
 set(SRC_LIST userservice.cc ../user.pb.cc)
-add_executable(provider ${SRC_LIST})
+add_executable(consumer ${SRC_LIST})
 
-target_link_libraries(provider mprpc 
+target_link_libraries(consumer mprpc 
                             protobuf 
                             absl_bad_any_cast_impl
                             absl_bad_optional_access
