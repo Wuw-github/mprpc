@@ -21,5 +21,4 @@ MPRPC is a C++ RPC (Remote Procedure Call) framework designed to facilitate comm
 *   **CMake** (or your preferred build system): For building the project.
 *   A C++11 compliant compiler (e.g., g++).
 
-## Project Structure
 
