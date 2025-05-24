@@ -63,6 +63,8 @@ void RpcProvider::Run()
             std::string method_path = service_path + "/" + method.first;
             char method_path_data[128] = {0};
             sprintf(method_path_data, "%s:%s", ip.c_str(), std::to_string(port).c_str());
+
+            // ZOO_EPHEMERAL: ephemeral node, the node will be deleted when the client disconnects
             zkCli.create(method_path.c_str(), method_path_data, sizeof(method_path_data), ZOO_EPHEMERAL);
         }
     }
