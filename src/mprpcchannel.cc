@@ -2,6 +2,7 @@
 #include "rpcheader.pb.h"
 #include "mprpcapplication.h"
 #include "mprpccontroller.h"
+#include "zookeeperutil.h"
 
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -62,8 +63,23 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
         return;
     }
 
-    std::string ip = MprpcApplication::GetConfig().load("rpcserverip");
-    uint64_t port = std::stoi(MprpcApplication::GetConfig().load("rpcserverport"));
+        // std::string ip = MprpcApplication::GetConfig().load("rpcserverip");
+    // uint64_t port = std::stoi(MprpcApplication::GetConfig().load("rpcserverport"));
+
+    // get ip and port from zookeeper
+    ZkCLient zkCli;
+    zkCli.start();
+    std::string method_path = "/" + service_name + "/" + method_name;
+    std::string host_data = zkCli.getData(method_path.c_str());
+    if (host_data.empty())
+    {
+        controller->SetFailed("method path does not exist: " + method_path);
+        close(clientfd);
+        return;
+    }
+    int idx = host_data.find(":");
+    std::string ip = host_data.substr(0, idx);
+    uint16_t port = std::stoi(host_data.substr(idx + 1));
 
     struct sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;

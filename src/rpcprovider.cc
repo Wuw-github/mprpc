@@ -2,6 +2,7 @@
 #include "mprpcapplication.h"
 #include "rpcheader.pb.h"
 #include "logger.h"
+#include "zookeeperutil.h"
 #include <functional>
 
 #include "google/protobuf/descriptor.h"
@@ -48,6 +49,23 @@ void RpcProvider::Run()
     server.setMessageCallback(std::bind(&RpcProvider::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     // restrict the thread number
     server.setThreadNum(4);
+
+    // register the service to zookeeper
+    ZKClient zkCli;
+    zkCli.start();
+    for (auto &service : m_serviceMap)
+    {
+        std::string service_path = "/" + service.first;
+        zkCli.create(service_path.c_str(), nullptr, 0, 0);
+
+        for (auto &method : service.second.m_methodMap)
+        {
+            std::string method_path = service_path + "/" + method.first;
+            char method_path_data[128] = {0};
+            sprintf(method_path_data, "%s:%s", ip.c_str(), std::to_string(port).c_str());
+            zkCli.create(method_path.c_str(), method_path_data, sizeof(method_path_data), ZOO_EPHEMERAL);
+        }
+    }
 
     // start the server
     server.start();

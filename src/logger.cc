@@ -23,6 +23,7 @@ Logger::Logger()
 
             char time_buf[128] = {0};
             sprintf(time_buf, "%d:%d:%d", nowtm->tm_hour, nowtm->tm_min, nowtm->tm_sec);
+            
             std::string msg = m_logQueue.pop();
 
             fputs(msg.c_str(), pf);
