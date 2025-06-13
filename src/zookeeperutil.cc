@@ -92,6 +92,7 @@ std::string ZKClient::getData(const char *path)
     if (flag == ZOK)
     {
         std::cout << "Znode data: " << buffer << std::endl;
+        return buffer;
     }
     else
     {
